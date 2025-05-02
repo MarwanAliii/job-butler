@@ -49,8 +49,8 @@ def format_jobs_to_markdown(jobs):
 # === GitHub Push ===
 def push_to_github(content):
     GITHUB_TOKEN = os.environ.get("GITHUB_PAT")  # safer than hardcoding
-    REPO_OWNER = "yourusername"
-    REPO_NAME = "yourrepo"
+    REPO_OWNER = "MarwanAliii"
+    REPO_NAME = "Obsidian-note-sync"
     FILE_PATH = "nvidia_jobs.md"
     BRANCH = "main"
 
