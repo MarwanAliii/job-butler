@@ -166,8 +166,5 @@ def main():
         print(f"Responsibilities: {job['responsibilities']}\n")
         print(f"Qualifications: {job['qualifications']}\n")
         
-
-
 if __name__ == "__main__":
     main()
-    

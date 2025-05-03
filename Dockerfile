@@ -1,6 +1,9 @@
 # Use official Python image
 FROM mcr.microsoft.com/playwright/python:v1.42.0-jammy
 
+# Unbuffer stdout so print() shows up in logs immediately
+ENV PYTHONUNBUFFERED=1
+
 # Set working directory
 WORKDIR /app
 
