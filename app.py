@@ -2,6 +2,7 @@ import os
 import base64
 import asyncio
 import requests
+import threading
 from datetime import datetime
 from flask import Flask, jsonify
 from webscraper import scrape_rivian, lne
@@ -14,14 +15,20 @@ def home():
 
 @app.route('/scrape')
 def scrape():
-    rivian_url = "https://careers.rivian.com/careers-home/jobs"
+    def farm_job():
+        rivian_url = "https://careers.rivian.com/careers-home/jobs"
+        
+        try:
+            jobs = asyncio.run(lne(rivian_url, scrape_rivian))
+            push_to_github(jobs)
+            return jsonify({"status": "success", "jobs_found": len(jobs)})
+        except Exception as e:
+            return jsonify({"status": "error", "message": str(e)})
     
-    try:
-        jobs = asyncio.run(lne(rivian_url, scrape_rivian))
-        push_to_github(jobs)
-        return jsonify({"status": "success", "jobs_found": len(jobs)})
-    except Exception as e:
-        return jsonify({"status": "error", "message": str(e)})
+    threading.Thread(target=farm_job).start()
+    return jsonify({"status": "scrape started"})
+
+        
 
 # === GitHub Push ===
 def push_to_github(content):
