@@ -7,6 +7,7 @@ WORKDIR /app
 # Copy requirements and install them
 COPY requirements.txt .
 RUN pip install -r requirements.txt
+RUN playwright install --with-deps
 
 # Copy your code
 COPY . .
