@@ -148,7 +148,17 @@ async def scrape_rivian(page):
         print(f"Extracted data from Job ({i}/{len(job_urls)})")
         i += 1
     
-    return job_data
+    content = ""
+    for job in job_data:
+        content += f"## {job['title']}\n"
+        content += f"**Location:** {job['location']}\n"
+        content += f"**Category:** {job['category']}\n\n"
+        content += f"**Apply Link:** [{job['apply_link']}]({job['apply_link']})\n\n"
+        content += f"**URL:** [{job['url']}]({job['url']})\n\n"
+        content += f"**Role Summary:** {job['role_summary']}\n\n"
+        content += f"**Responsibilities:** {job['responsibilities']}\n\n"
+        content += f"**Qualifications:** {job['qualifications']}\n\n\n"
+    return content
     
 
 def main():

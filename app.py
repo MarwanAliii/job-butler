@@ -20,17 +20,7 @@ def scrape():
         
         try:
             jobs = asyncio.run(lne(rivian_url, scrape_rivian))
-            content = ""
-            for job in jobs:
-                content += f"## {job['title']}\n"
-                content += f"**Location:** {job['location']}\n"
-                content += f"**Category:** {job['category']}\n"
-                content += f"**Apply Link:** [{job['apply_link']}]({job['apply_link']})\n"
-                content += f"**URL:** [{job['url']}]({job['url']})\n"
-                content += f"**Role Summary:** {job['role_summary']}\n"
-                content += f"**Responsibilities:** {job['responsibilities']}\n"
-                content += f"**Qualifications:** {job['qualifications']}\n\n"
-            push_to_github(content)
+            push_to_github(jobs)
             print(f"✅ Scrape complete. {len(jobs)} jobs pushed to GitHub.")
         except Exception as e:
             print(f"❌ Scrape failed: {e}")
