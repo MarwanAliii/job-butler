@@ -21,9 +21,9 @@ def scrape():
         try:
             jobs = asyncio.run(lne(rivian_url, scrape_rivian))
             push_to_github(jobs)
-            return jsonify({"status": "success", "jobs_found": len(jobs)})
+            print(f"✅ Scrape complete. {len(jobs)} jobs pushed to GitHub.")
         except Exception as e:
-            return jsonify({"status": "error", "message": str(e)})
+            print(f"❌ Scrape failed: {e}")
     
     threading.Thread(target=farm_job).start()
     return jsonify({"status": "scrape started"})
