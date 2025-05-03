@@ -2,6 +2,7 @@ import os
 import base64
 import asyncio
 import requests
+import subprocess
 from datetime import datetime
 from flask import Flask, jsonify
 from webscraper import scrape_rivian, lne
@@ -14,6 +15,11 @@ def home():
 
 @app.route('/scrape')
 def scrape():
+    print("Making sure playwright is installed...")
+    try:
+        subprocess.run(["playwright", "install"], check=True)
+    except subprocess.CalledProcessError as e:
+        return jsonify({"status": "error", "message": str(e)})
     rivian_url = "https://careers.rivian.com/careers-home/jobs"
     
     try:
